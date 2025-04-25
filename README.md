@@ -1,7 +1,7 @@
 # 🎮 Entregable 1 - Programación de Videojuegos III
 ## Alumno: Matías Lorenzo
 ---
-Todos los archivos que se utilizaron en blender y unity se encuntran dentro de la carpeta Assets/TP1, salvo excepción que se comentará luego.
+Todos los archivos que se utilizaron en blender y unity se encuentran dentro de la carpeta Assets/TP1, salvo excepción que se comentará luego.
 Este proyecto consiste en la transformación de una escena de una entrega anterior, cumpliendo con los requisitos solicitados y que se detallarán a continuación:
 
 ---
@@ -27,7 +27,7 @@ La mayoría de los faroles de pared se configuraron como Baked, ya que son luces
 
 ## 2. Punto de vista en Primera Persona
 
-Para pasar a primera persona, se tuvo que agregar una camara cercana a su cara, modificar código original del PlayerController.cs para controlar el movimiento de la camara con el mouse, adaptarse el collider para que no atravesa paredes y columnas.
+Para pasar a primera persona, se tuvo que agregar una cámara cercana a su cara, modificar código original del PlayerController.cs para controlar el movimiento de la cámara con el mouse, adaptarse el collider para que no atravesa paredes y columnas.
 
 📸 *Captura de vista en primera persona:*
 
