@@ -49,7 +49,13 @@ Se incorporaron dos objetos con **niveles de detalle (LOD)** para optimizar el r
 
 📸 *Visualización de transiciones LOD:*
 
-![Objetos con LOD](ruta/a/imagen3.png)
+![Objetos con LOD](TP1/Capturas/obj1lod0)
+![Objetos con LOD](TP1/Capturas/obj1lod1)
+![Objetos con LOD](TP1/Capturas/obj1lod2)
+![Objetos con LOD](TP1/Capturas/obj2lod0)
+![Objetos con LOD](TP1/Capturas/obj2lod1)
+![Objetos con LOD](TP1/Capturas/obj2lod2)
+
 
 ---
 
