@@ -53,6 +53,6 @@ public class ArrowProjectile : ItemProjectile
     {
         base.Release();
 
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
     }
 }

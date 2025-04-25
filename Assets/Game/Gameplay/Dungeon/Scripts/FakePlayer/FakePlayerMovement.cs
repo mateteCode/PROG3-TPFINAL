@@ -28,7 +28,7 @@ public class FakePlayerMovement : MonoBehaviour
         float horizontal = - Input.GetAxis("Horizontal");
         float vertical = - Input.GetAxis("Vertical");
         Vector2 movement = new Vector2(horizontal, vertical).normalized * _moveSpeed;
-        _rb.velocity = new Vector3(movement.x, _rb.velocity.y, movement.y);
+        _rb.linearVelocity = new Vector3(movement.x, _rb.linearVelocity.y, movement.y);
 
         if (movement != Vector2.zero)
         {
