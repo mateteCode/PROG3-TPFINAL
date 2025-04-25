@@ -1,8 +1,8 @@
 # 🎮 Entregable 1 - Programación de Videojuegos III
 ## Alumno: Matías Lorenzo
 ---
-
-Este proyecto consiste en la transformación de una escena de un proyecto final para la materia Programación de Videojuegos II, cumpliendo con los requisitos solicitados y que se detallarán a continuación:
+Todos los archivos que se utilizaron en blender y unity se encuntran dentro de la carpeta Assets/TP1, salvo excepción que se comentará luego.
+Este proyecto consiste en la transformación de una escena de una entrega anterior, cumpliendo con los requisitos solicitados y que se detallarán a continuación:
 
 ---
 
@@ -31,7 +31,7 @@ En esta escena se aplicaron distintas técnicas de iluminación según el tipo d
 
 ## 2. Punto de vista en Primera Persona
 
-Se reemplazó la cámara en tercera persona por un controlador en **primera persona**, utilizando como base el *First Person Controller* (Asset sugerido). Esto cambia completamente la percepción del jugador y la forma de interactuar con el entorno.
+Para pasar a primera persona, se tuvo que agregar una camara cercana a su cara, modificar archivos del PlayerController.cs para controlar el movimiento de la camara con el mouse, adaptarse el collider par que no atravesa paredes y columnas.
 
 📸 *Captura de vista en primera persona:*
 
@@ -41,7 +41,7 @@ Se reemplazó la cámara en tercera persona por un controlador en **primera pers
 
 ## 3. Implementación de objetos con LOD
 
-Se incorporaron objetos con **niveles de detalle (LOD)** para optimizar el rendimiento gráfico. Dependiendo de la distancia del jugador, los modelos cambian automáticamente su nivel de complejidad visual.
+Se incorporaron dos objetos con **niveles de detalle (LOD)** para optimizar el rendimiento gráfico Se encuentran dentro de "/Assets/TP1/Modelos LOD". Dependiendo de la distancia del jugador, los modelos cambian automáticamente su nivel de complejidad visual. Se remplazaron esos mismos objetos en todo el nivel.
 
 - LOD0: Detalle completo (cerca)
 - LOD1: Menor detalle (media distancia)
@@ -55,27 +55,11 @@ Se incorporaron objetos con **niveles de detalle (LOD)** para optimizar el rendi
 
 ## 4. Animación en loop e interacción
 
-Se animaron ciertos objetos de forma continua (loop) para dar vida al entorno (ej: ventiladores, lámparas colgantes). Además, se incluyó una animación alternativa que se activa mediante interacción con el jugador (por ejemplo, abrir una puerta al acercarse).
+Se animaron dos objetos en blender para dar vida al entorno: una llave con un loop de moviendose necesaria para abrir una puerta (que también tiene una animación de abrirse). Se encuentran en "/Assets/TP1/Modelos Animados"
 
 📸 *Animación en loop con interacción:*
 
 ![Animación en loop e interacción](ruta/a/imagen4.png)
-
----
-
-## 💾 Recomendación
-
-> Este TP fue desarrollado a partir de una **copia del proyecto en tercera persona**, siguiendo la sugerencia de no modificar la estructura del proyecto original. Se trabajó sobre una sola escena para cumplir con la consigna.
-
----
-
-## 🚀 Créditos y herramientas
-
-- Unity 6  
-- Standard Assets - First Person Controller  
-- LOD Group Component  
-- Animator Controller + Triggers  
-- Sistema de iluminación Unity (Baked + Mixed + Real-Time)
 
 ---
 
