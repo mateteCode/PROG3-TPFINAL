@@ -35,7 +35,8 @@ Para pasar a primera persona, se tuvo que agregar una camara cercana a su cara, 
 
 📸 *Captura de vista en primera persona:*
 
-![First Person View](ruta/a/imagen2.png)
+![Vista Primera Persona](https://raw.githubusercontent.com/mateteCode/PROG3-TP1/refs/heads/main/Assets/TP1/Capturas/player1.jpg)
+![Vista Primera Persona](https://raw.githubusercontent.com/mateteCode/PROG3-TP1/refs/heads/main/Assets/TP1/Capturas/player2.jpg)
 
 ---
 
@@ -65,7 +66,9 @@ Se animaron dos objetos en blender para dar vida al entorno: una llave con un lo
 
 📸 *Animación en loop con interacción:*
 
-![Animación en loop e interacción](ruta/a/imagen4.png)
+![Animación e interacción](https://raw.githubusercontent.com/mateteCode/PROG3-TP1/refs/heads/main/Assets/TP1/Capturas/door1.jpg)
+![Animación e interacción](https://raw.githubusercontent.com/mateteCode/PROG3-TP1/refs/heads/main/Assets/TP1/Capturas/door2.jpg)
+![Animación e interacción](https://raw.githubusercontent.com/mateteCode/PROG3-TP1/refs/heads/main/Assets/TP1/Capturas/door3.jpg)
 
 ---
 
