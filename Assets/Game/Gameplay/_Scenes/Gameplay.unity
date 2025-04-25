@@ -17316,6 +17316,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeholderEasy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5784096846993762216, guid: 22dcc99ffea75c242a5b5539bfe35b5f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19529,7 +19534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1477757885
 Transform:
   m_ObjectHideFlags: 0
@@ -27841,6 +27846,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WatcherHard
       objectReference: {fileID: 0}
+    - target: {fileID: 2671899554114813115, guid: 8cc3ddb604862fa4fa5baf55e8fc4331,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3341581658724361729, guid: 8cc3ddb604862fa4fa5baf55e8fc4331,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27908,6 +27918,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ChestMonsterEasy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923193036722814095, guid: 22dd5ab18a2420c4483648d89bcdba1b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8078513813963117498, guid: 22dd5ab18a2420c4483648d89bcdba1b,
         type: 3}
@@ -28568,6 +28583,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeholderEasy
       objectReference: {fileID: 0}
+    - target: {fileID: 5784096846993762216, guid: 22dcc99ffea75c242a5b5539bfe35b5f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5900648290426227644, guid: 22dcc99ffea75c242a5b5539bfe35b5f,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -28913,6 +28933,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WatcherEasy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461105775835012262, guid: dd143f36d34b8414f9f50a789017f4fe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1593195890148487137, guid: dd143f36d34b8414f9f50a789017f4fe,
         type: 3}
@@ -29274,6 +29299,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ChestMonsterHard
+      objectReference: {fileID: 0}
+    - target: {fileID: 2392648607796171184, guid: d263b4531bd531648a0a753705f7cc01,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
