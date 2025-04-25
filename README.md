@@ -8,30 +8,26 @@ Este proyecto consiste en la transformación de una escena de una entrega anteri
 
 ## 📑 Índice
 
-1. [Iluminación: Baked, Mixed y Real-Time](#1-iluminación-baked-mixed-y-real-time)
+1. [Iluminación](#1-iluminación)
 2. [Punto de vista en Primera Persona](#2-punto-de-vista-en-primera-persona)
 3. [Implementación de objetos con LOD](#3-implementación-de-objetos-con-lod)
 4. [Animación en loop e interacción](#4-animación-en-loop-e-interacción)
 
 ---
 
-## 1. Iluminación: Baked, Mixed y Real-Time
+## 1. Iluminación:
 
-En esta escena se aplicaron distintas técnicas de iluminación según el tipo de objeto y su interacción con el jugador:
+La mayoría de los faroles de pared se configuraron como Baked, ya que son luces fijas. En cambio, se eligió uno en particular para tener un efecto de parpadeo aleatorio, tanto en intensidad como en duración, mediante un script, y ese se configuró como Mixed.
 
-- **Baked Lighting** se utilizó para objetos estáticos como paredes y suelos, mejorando el rendimiento al precalcular la iluminación.
-- **Mixed Lighting** se aplicó en objetos que están en contacto con fuentes de luz dinámicas pero que no se mueven.
-- **Real-Time Lighting** fue usado para luces en objetos que reaccionan al jugador o que se encienden/apagan durante la ejecución del juego.
+📸 *Capturas de luces*
 
-📸 *Ejemplo visual de iluminación combinada:*
-
-![Iluminación Baked, Mixed y Real-Time](ruta/a/imagen1.png)
+![Iluminación](https://raw.githubusercontent.com/mateteCode/PROG3-TP1/refs/heads/main/Assets/TP1/Capturas/iluminacion.gif)
 
 ---
 
 ## 2. Punto de vista en Primera Persona
 
-Para pasar a primera persona, se tuvo que agregar una camara cercana a su cara, modificar archivos del PlayerController.cs para controlar el movimiento de la camara con el mouse, adaptarse el collider par que no atravesa paredes y columnas.
+Para pasar a primera persona, se tuvo que agregar una camara cercana a su cara, modificar código original del PlayerController.cs para controlar el movimiento de la camara con el mouse, adaptarse el collider para que no atravesa paredes y columnas.
 
 📸 *Captura de vista en primera persona:*
 

@@ -1245,6 +1245,28 @@ Transform:
   - {fileID: 2115466649}
   m_Father: {fileID: 2076152900}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &78965763 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 486487352896165681, guid: 80b6a051a0f478e4292bdf74472609f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 581476843}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &78965767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78965763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1744fd42c7ad24ba663b6f75e29c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDelay: 0.05
+  maxDelay: 0.3
+  minIntensity: 0.3
+  maxIntensity: 1
 --- !u!1001 &79692577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7368,6 +7390,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: wall_hanging_lantern2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4589768007799445623, guid: 80b6a051a0f478e4292bdf74472609f6,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6843763865595406515, guid: 80b6a051a0f478e4292bdf74472609f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7421,7 +7448,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 486487352896165681, guid: 80b6a051a0f478e4292bdf74472609f6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 78965767}
   m_SourcePrefab: {fileID: 100100000, guid: 80b6a051a0f478e4292bdf74472609f6, type: 3}
 --- !u!4 &581476844 stripped
 Transform:
@@ -19171,6 +19202,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4602478241545224294, guid: 3058f3f242960284bb5065a4774313e3,
+        type: 3}
+      propertyPath: m_FadeMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602478241545224294, guid: 3058f3f242960284bb5065a4774313e3,
+        type: 3}
+      propertyPath: m_LODs.Array.data[0].screenRelativeHeight
+      value: 0.58741283
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602478241545224294, guid: 3058f3f242960284bb5065a4774313e3,
+        type: 3}
+      propertyPath: m_LODs.Array.data[1].screenRelativeHeight
+      value: 0.29100263
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26028,12 +26074,12 @@ PrefabInstance:
     - target: {fileID: 4742473837712756890, guid: 792eaf9056c18334e920204990f02bc3,
         type: 3}
       propertyPath: m_LODs.Array.data[0].screenRelativeHeight
-      value: 0.46079913
+      value: 0.52260053
       objectReference: {fileID: 0}
     - target: {fileID: 4742473837712756890, guid: 792eaf9056c18334e920204990f02bc3,
         type: 3}
       propertyPath: m_LODs.Array.data[1].screenRelativeHeight
-      value: 0.1229
+      value: 0.23977003
       objectReference: {fileID: 0}
     - target: {fileID: 4742473837712756890, guid: 792eaf9056c18334e920204990f02bc3,
         type: 3}
