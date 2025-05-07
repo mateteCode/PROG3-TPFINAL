@@ -6,6 +6,10 @@ Este proyecto consiste en la transformación de una escena de una entrega anteri
 
 ---
 
+## 8/5/2025: Novedad/Actualización
+* Se configuró el proyecto para usar Light Probes (con Adaptive Probe Volume) pero tengo problemas con el reconocimiento de la GPU y me tarda bastante el horneado.
+* Se agregró un efecto de postprocesado (Film Grain con Color Adjustments) dentro de un volumen local que corresponde a la room de inicio de juego para darle un efecto de blanco y negro con pixeles granulado, que desaparece al salir de esa room.
+
 ## 📑 Índice
 
 1. [Iluminación](#1-iluminación)
@@ -16,8 +20,11 @@ Este proyecto consiste en la transformación de una escena de una entrega anteri
 ---
 
 ## 1. Iluminación:
-
-La mayoría de los faroles de pared se configuraron como Baked, ya que son luces fijas. En cambio, se eligió uno en particular para tener un efecto de parpadeo aleatorio, tanto en intensidad como en duración, mediante un script, y ese se configuró como Mixed.
+Todos los elementos en escenas fijos (paredes, pisos, decorativos) se pusieron static para que acompañen en el horneado de la escena.
+Otros elementos dinámicos como la llave con animación, la puerta que se abre, enemigos, el jugador se pusiern no static.
+La mayoría de los faroles de pared se configuraron como Baked, ya que son luces fijas. En cambio, se eligió uno en particular para tener un efecto de parpadeo aleatorio, tanto en intensidad como en duración, mediante un script, y ese se configuró como Realtime.
+El sol (direction light) se dejo como mixed para que pueda hornear los elementos statics.
+Para el horneado, se bajo la calidad para priorizar la rapidez del proceso ya que no es detectada la GPU.
 
 📸 *Capturas de luces*
 
