@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour, IDamagable
   [SerializeField] private AudioEvent recieveHitSound = null;
   [SerializeField] private AudioEvent pickUpSound = null;
 
+  [SerializeField] EfectoHeridaPostProcess efectoHeridaPostProcess = null;
+
   private PlayerInputController inputController = null;
 
   private CharacterController character = null;
@@ -247,6 +249,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     else
     {
       GameManager.Instance.AudioManager.PlayAudio(recieveHitSound);
+      efectoHeridaPostProcess?.ActivarEfectoHerida();
     }
 
     onUpdateLife?.Invoke(currentLife, maxLife);

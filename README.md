@@ -8,7 +8,15 @@ Este proyecto consiste en la transformación de una escena de una entrega anteri
 
 ## 8/5/2025: Novedad/Actualización
 * Se configuró el proyecto para usar Light Probes (con Adaptive Probe Volume) pero tengo problemas con el reconocimiento de la GPU y me tarda bastante el horneado.
-* Se agregró un efecto de postprocesado (Film Grain con Color Adjustments) dentro de un volumen local que corresponde a la room de inicio de juego para darle un efecto de blanco y negro con pixeles granulado, que desaparece al salir de esa room.
+* Se agregró efectos de postprocesado:
+** Film Grain dentro de un volumen local que corresponde a la room de inicio de juego para darle un efecto con pixeles granulado, que desaparece al salir de esa room.
+** Lift Gamma gain en un volumen local que es hijo del player que se activará cada vez que es herido, tiñendo la plantalla de rojo gradualmente con una duración de tiempo.
+
+📸 *Capturas de efectos de post procesado*
+
+![PostProcesado](https://raw.githubusercontent.com/mateteCode/PROG3-TP1/refs/heads/main/Assets/TP1/Capturas/volume1.jpg)
+![PostProcesado](https://raw.githubusercontent.com/mateteCode/PROG3-TP1/refs/heads/main/Assets/TP1/Capturas/volume2.jpg)
+
 
 ## 📑 Índice
 
