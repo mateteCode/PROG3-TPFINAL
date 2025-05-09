@@ -9,8 +9,8 @@ Este proyecto consiste en la transformación de una escena de una entrega anteri
 ## 8/5/2025: Novedad/Actualización
 * Se configuró el proyecto para usar Light Probes (con Adaptive Probe Volume) pero tengo problemas con el reconocimiento de la GPU y me tarda bastante el horneado.
 * Se agregró efectos de postprocesado:
-** Film Grain dentro de un volumen local que corresponde a la room de inicio de juego para darle un efecto con pixeles granulado, que desaparece al salir de esa room.
-** Lift Gamma gain en un volumen local que es hijo del player que se activará cada vez que es herido, tiñendo la plantalla de rojo gradualmente con una duración de tiempo.
+  * Film Grain dentro de un volumen local que corresponde a la room de inicio de juego para darle un efecto con pixeles granulado, que desaparece al salir de esa room.
+  * Lift Gamma gain en un volumen local que es hijo del player que se activará cada vez que es herido, tiñendo la plantalla de rojo gradualmente con una duración de tiempo.
 
 📸 *Capturas de efectos de post procesado*
 
