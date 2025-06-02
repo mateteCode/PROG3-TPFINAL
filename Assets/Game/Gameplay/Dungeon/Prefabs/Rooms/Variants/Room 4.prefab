@@ -4378,6 +4378,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Down Door
       objectReference: {fileID: 0}
+    - target: {fileID: 6869334544598567689, guid: 49a5f24a081cbbc44bd23d76c2869723,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: -732307635432038381, guid: 7630fcb7189bed34dbc32d612f41b788,
+        type: 3}
     - target: {fileID: 6966706505589406848, guid: 49a5f24a081cbbc44bd23d76c2869723,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5271,6 +5277,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Down Door (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6869334544598567689, guid: 49a5f24a081cbbc44bd23d76c2869723,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: -732307635432038381, guid: 7630fcb7189bed34dbc32d612f41b788,
+        type: 3}
     - target: {fileID: 6966706505589406848, guid: 49a5f24a081cbbc44bd23d76c2869723,
         type: 3}
       propertyPath: m_LocalPosition.x
