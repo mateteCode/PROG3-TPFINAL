@@ -30,6 +30,7 @@ Material:
     m_Floats:
     - _FresnelPower: 1
     - _InteriorSpead: 100
+    - _QueueControl: 0
     - _WobbleDistance: 5
     - _WobbleFrequency: 10
     - _WobbleSpeed: 10
