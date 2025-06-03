@@ -606,7 +606,7 @@ GameObject:
   m_Component:
   - component: {fileID: 37880880}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: GhostFinalPoints2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -621,7 +621,7 @@ Transform:
   m_GameObject: {fileID: 37880879}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.1, y: 2.6, z: -16.24}
+  m_LocalPosition: {x: 10.01, y: 0.75, z: -13.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5360,6 +5360,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2616089796874209213}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &267908254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 267908255}
+  m_Layer: 0
+  m_Name: GhostFinalPoints3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &267908255
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267908254}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 53.8, y: 0.75, z: -31.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1651109109}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &275370636
 GameObject:
   m_ObjectHideFlags: 0
@@ -16156,7 +16187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 788362526}
   m_Layer: 0
-  m_Name: Pos1
+  m_Name: GhostStartPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16171,7 +16202,7 @@ Transform:
   m_GameObject: {fileID: 788362525}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.2, y: 2.07, z: -19.94}
+  m_LocalPosition: {x: 45.03, y: 1.75, z: -35.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16513,7 +16544,7 @@ Transform:
   m_GameObject: {fileID: 818925618}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.92, y: 2.11, z: -24.93}
+  m_LocalPosition: {x: 37.3, y: 2.11, z: -24.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16969,7 +17000,7 @@ Transform:
   m_GameObject: {fileID: 853177496}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.45, y: 2.07, z: -23.83}
+  m_LocalPosition: {x: 11.7, y: 2.07, z: -23.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21095,7 +21126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1007447504}
   m_Layer: 0
-  m_Name: Pos1 (1)
+  m_Name: GhostStartPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21110,7 +21141,7 @@ Transform:
   m_GameObject: {fileID: 1007447503}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.92, y: 2.11, z: -24.93}
+  m_LocalPosition: {x: 50.29, y: 1.75, z: -23.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21918,7 +21949,7 @@ Transform:
   m_GameObject: {fileID: 1030162963}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.92, y: 2.11, z: -17.16}
+  m_LocalPosition: {x: 52.8, y: 2.11, z: -17.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27041,7 +27072,7 @@ Transform:
   m_GameObject: {fileID: 1302144092}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.45, y: 2.07, z: -13.8}
+  m_LocalPosition: {x: 28.2, y: 2.07, z: -29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -35407,6 +35438,7 @@ Transform:
   m_Children:
   - {fileID: 1773442310}
   - {fileID: 37880880}
+  - {fileID: 267908255}
   m_Father: {fileID: 1663877500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1651218871
@@ -35580,10 +35612,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostPrefab: {fileID: 8679779618402113437, guid: 696fff959714c0b48848ee117bf26315,
     type: 3}
-  poolSize: 10
+  poolSize: 5
   ghostHealth: 100
   ghostSpeed: 2
-  spawnInterval: 5
+  spawnInterval: 15
   startPositionsParent: {fileID: 288304467}
   intermediatePositionsParent: {fileID: 938006339}
   finalPositionsParent: {fileID: 1651109109}
@@ -39182,7 +39214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1773442310}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GhostFinalPoints1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39197,7 +39229,7 @@ Transform:
   m_GameObject: {fileID: 1773442309}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.64, y: 2.06, z: -4.7}
+  m_LocalPosition: {x: 27.88, y: 0.75, z: -32.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
