@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,6 +9,14 @@ public class DoorController : MonoBehaviour
   [Tooltip("Número de llaves necesarias para abrir la puerta.")]
   [SerializeField] private int keysRequired = 1;
   int currentKeys;
+
+  [Header("Door Camera Configuration")]
+  [Tooltip("La cámara de la puerta que se activará temporalmente.")]
+  public Camera doorCamera;
+  [Tooltip("Tiempo en segundos que la cámara de la puerta estará activa.")]
+  public float doorCameraViewDuration = 2.0f;
+  private Camera mainCamera;
+
   void Awake()
   {
     currentKeys = keysRequired;
@@ -19,6 +28,18 @@ public class DoorController : MonoBehaviour
     else
     {
       Debug.LogWarning("DoorController: 'door' child GameObject not found under " + gameObject.name + "!");
+    }
+
+    mainCamera = Camera.main;
+    if (mainCamera == null)
+    {
+      Debug.LogWarning("DoorController: Main camera not found in the scene! Ensure your main camera is tagged 'MainCamera'.");
+    }
+
+    // Ensure the door camera is initially off
+    if (doorCamera != null)
+    {
+      doorCamera.gameObject.SetActive(false);
     }
   }
   public void OpenDoor()
@@ -33,6 +54,7 @@ public class DoorController : MonoBehaviour
       currentKeys--; // Decrementa el contador de llaves
       Debug.Log($"Door requires {currentKeys} more key(s) to open.");
 
+
       if (currentKeys == 0)
       {
         // Si el contador llega a cero, la puerta se puede abrir
@@ -42,11 +64,21 @@ public class DoorController : MonoBehaviour
         if (doorAnimator != null)
         {
           doorAnimator.SetTrigger("OpenDoor");
+          //TODO: Sonido de puerta abriéndose
         }
         else
         {
           Debug.LogWarning("DoorController: Animator component not found on 'door' GameObject!");
         }
+      }
+      else
+      {
+        //TODO: Sonido de cerradura que no abre
+      }
+
+      if (doorCamera != null)
+      {
+        StartCoroutine(HandleDoorCameraView());
       }
     }
     else
@@ -57,5 +89,29 @@ public class DoorController : MonoBehaviour
     }
     //Debug.Log("Door opened!");
     //door.GetComponent<Animator>().SetTrigger("OpenDoor");
+  }
+
+  private IEnumerator HandleDoorCameraView()
+  {
+    // Ensure main camera exists and is enabled
+    if (mainCamera != null)
+    {
+      mainCamera.gameObject.SetActive(false);
+    }
+
+    // Activate the door camera
+    doorCamera.gameObject.SetActive(true);
+
+    // Wait for the specified duration
+    yield return new WaitForSeconds(doorCameraViewDuration);
+
+    // Deactivate the door camera
+    doorCamera.gameObject.SetActive(false);
+
+    // Reactivate the main camera
+    if (mainCamera != null)
+    {
+      mainCamera.gameObject.SetActive(true);
+    }
   }
 }
