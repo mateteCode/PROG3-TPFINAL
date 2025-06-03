@@ -110,3 +110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 642b9af0989d71f44827d1f7695e5f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultGhostType: 0
+  playerDetectionRange: 1.5
+  whiteGhostDropPrefab: {fileID: 1000012970591572, guid: 7cafb89b5a0f61f479d0a748962abbbc,
+    type: 3}
+  redGhostFixedReturnPoint: {fileID: 0}
+  whiteGhostMaterial: {fileID: 2100000, guid: 9c93bda2bff6e0c4dad9472fed80ad4d, type: 2}
+  blueGhostMaterial: {fileID: 2100000, guid: 8673012b9818c3f4f800ae4e6afc3436, type: 2}
+  redGhostMaterial: {fileID: 2100000, guid: 243d919043acf194ca553e5ecb4c0ba8, type: 2}

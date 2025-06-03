@@ -19,74 +19,91 @@ public class GhostManager : MonoBehaviour
   [Tooltip("Tiempo de espera entre la aparición de fantasmas.")]
   public float spawnInterval = 3f;
 
-  [Header("Posiciones de Spawneo y Destino")]
-  [Tooltip("Lista de posibles posiciones de inicio para los fantasmas.")]
-  public List<Transform> startPositions = new List<Transform>();
-  [Tooltip("Lista de posibles posiciones de destino para los fantasmas.")]
-  public List<Transform> targetPositions = new List<Transform>();
+  [Header("Configuración de Ruta")]
+  [Tooltip("GameObject padre que contiene las posibles posiciones de inicio para los fantasmas (hijos).")]
+  public Transform startPositionsParent;
+  [Tooltip("GameObject padre que contiene las posibles posiciones intermedias para los fantasmas (hijos).")]
+  public Transform intermediatePositionsParent;
+  [Tooltip("GameObject padre que contiene las posibles posiciones de destino para los fantasmas (hijos).")]
+  public Transform finalPositionsParent;
+  [Tooltip("El punto fijo global al que regresa el fantasma rojo antes de desaparecer.")]
+  public Transform redGhostGlobalReturnPoint;
+  [Tooltip("Prefab que el fantasma blanco dejará al desaparecer.")]
+  public GameObject whiteGhostDropPrefab;
 
-  [Header("Materiales de Fantasmas")]
-  [Tooltip("Lista de materiales que se asignarán aleatoriamente a los fantasmas.")]
-  public List<Material> ghostMaterials = new List<Material>();
 
   private List<GameObject> ghostPool;
   private int currentGhostIndex = 0; // Índice para recorrer el pool
   private Coroutine spawnCoroutine;
 
+  private List<Transform> allStartPoints = new List<Transform>();
+  private List<Transform> allIntermediatePoints = new List<Transform>();
+  private List<Transform> allFinalPoints = new List<Transform>();
+
   void Awake()
   {
+    CachePoints(); // Cargar los puntos de las jerarquías
     InitializeGhostPool();
   }
 
   void Start()
   {
-    // Inicia el proceso de spawneo y movimiento
     spawnCoroutine = StartCoroutine(SpawnGhostsRoutine());
   }
 
-  /// <summary>
-  /// Inicializa el pool de fantasmas, desactivándolos y agregándolos a la lista.
-  /// </summary>
+  void CachePoints()
+  {
+    if (startPositionsParent != null)
+    {
+      foreach (Transform child in startPositionsParent) { allStartPoints.Add(child); }
+    }
+    else { Debug.LogWarning("GhostManager: Start Positions Parent no asignado. No se generarán rutas de inicio."); }
+
+    if (intermediatePositionsParent != null)
+    {
+      foreach (Transform child in intermediatePositionsParent) { allIntermediatePoints.Add(child); }
+    }
+    else { Debug.LogWarning("GhostManager: Intermediate Positions Parent no asignado. Las rutas serán directas."); }
+
+    if (finalPositionsParent != null)
+    {
+      foreach (Transform child in finalPositionsParent) { allFinalPoints.Add(child); }
+    }
+    else { Debug.LogWarning("GhostManager: Final Positions Parent no asignado. No se generarán rutas de destino."); }
+  }
+
   void InitializeGhostPool()
   {
     ghostPool = new List<GameObject>();
     for (int i = 0; i < poolSize; i++)
     {
-      GameObject ghost = Instantiate(ghostPrefab, transform); // Instancia como hijo del GhostManager para organizar
-      ghost.SetActive(false); // Desactiva el fantasma inmediatamente
+      GameObject ghost = Instantiate(ghostPrefab, transform);
+      ghost.SetActive(false);
       ghostPool.Add(ghost);
     }
   }
 
-  /// <summary>
-  /// Obtiene un fantasma del pool.
-  /// </summary>
-  /// <returns>Un GameObject de fantasma si hay uno disponible, de lo contrario null.</returns>
   GameObject GetGhostFromPool()
   {
-    // Busca un fantasma inactivo en el pool, empezando desde el último índice usado para una mejor distribución.
     for (int i = 0; i < ghostPool.Count; i++)
     {
       int index = (currentGhostIndex + i) % ghostPool.Count;
       if (!ghostPool[index].activeInHierarchy)
       {
-        currentGhostIndex = index; // Actualiza el índice para la próxima búsqueda
+        currentGhostIndex = index;
         return ghostPool[index];
       }
     }
-    // Si todos los fantasmas están activos, no hay ninguno disponible.
-    Debug.LogWarning("Pool de fantasmas vacío. Considera aumentar el 'Pool Size'.");
+    Debug.LogWarning("Pool de fantasmas vacío. Considera aumentar el 'Pool Size' o espera a que uno termine.");
     return null;
   }
 
-  /// <summary>
-  /// Corutina que maneja el spawneo periódico de fantasmas.
-  /// </summary>
+
   IEnumerator SpawnGhostsRoutine()
   {
     while (true)
     {
-      yield return new WaitForSeconds(spawnInterval); // Espera el tiempo configurado
+      yield return new WaitForSeconds(spawnInterval);
 
       GameObject ghost = GetGhostFromPool();
       if (ghost != null)
@@ -96,27 +113,21 @@ public class GhostManager : MonoBehaviour
     }
   }
 
-  /// <summary>
-  /// Configura y activa un fantasma obtenido del pool.
-  /// </summary>
-  /// <param name="ghost">El GameObject del fantasma a configurar.</param>
+
   void ConfigureAndActivateGhost(GameObject ghost)
   {
-    // 1. Asignar posición de inicio aleatoria
-    Vector3 startPos = GetRandomStartPosition();
-    ghost.transform.position = startPos;
+    GhostType randomType = (GhostType)Random.Range(0, System.Enum.GetValues(typeof(GhostType)).Length);
 
-    // 2. Asignar material aleatorio
-    AssignRandomMaterial(ghost);
+    List<Vector3> route = GenerateRandomPath();
+    if (route.Count == 0)
+    {
+      Debug.LogError("Ruta generada vacía para el fantasma " + randomType + ". No se puede configurar. Devolviendo al pool.");
+      ReturnGhostToPool(ghost); // Devuelve el fantasma si la ruta es inválida
+      return;
+    }
 
-    // 3. Activar el fantasma
     ghost.SetActive(true);
 
-    // 4. Iniciar movimiento del fantasma
-    // Asegúrate de que tu prefab de fantasma tenga un script que maneje su movimiento.
-    // Aquí asumimos que tienes un script llamado 'GhostMovement' o similar.
-    // Si no tienes uno, tendrás que crearlo o manejar el movimiento directamente aquí
-    // (lo cual puede hacer este script muy grande).
     GhostMovement ghostMovement = ghost.GetComponent<GhostMovement>();
     if (ghostMovement == null)
     {
@@ -124,74 +135,54 @@ public class GhostManager : MonoBehaviour
       ghostMovement = ghost.AddComponent<GhostMovement>();
     }
 
-    // Configura el movimiento del fantasma
-    ghostMovement.SetMovementParameters(GetRandomTargetPosition(), ghostSpeed, this); // Pasa una referencia a GhostManager
-    ghostMovement.Health = ghostHealth; // Asigna la vida
+    ghostMovement.SetMovementParameters(randomType, route, ghostSpeed, this, whiteGhostDropPrefab, redGhostGlobalReturnPoint);
+    ghostMovement.Health = ghostHealth;
   }
 
-  /// <summary>
-  /// Devuelve una posición de inicio aleatoria de la lista.
-  /// </summary>
-  Vector3 GetRandomStartPosition()
+  List<Vector3> GenerateRandomPath()
   {
-    if (startPositions == null || startPositions.Count == 0)
+    List<Vector3> path = new List<Vector3>();
+
+    if (allStartPoints.Count == 0 || allFinalPoints.Count == 0)
     {
-      Debug.LogError("No hay posiciones de inicio configuradas. Asegúrate de añadir posiciones en el Inspector.");
-      return Vector3.zero;
+      Debug.LogError("No hay suficientes puntos de inicio o destino configurados para generar una ruta.");
+      return path;
     }
-    return startPositions[Random.Range(0, startPositions.Count)].position;
+
+    Vector3 startPoint = allStartPoints[Random.Range(0, allStartPoints.Count)].position;
+    path.Add(startPoint);
+
+    Vector3 finalPoint = allFinalPoints[Random.Range(0, allFinalPoints.Count)].position;
+
+    // Seleccionar un número aleatorio de puntos intermedios (entre 0 y el máximo disponible)
+    // Se cambió a 0 como mínimo para permitir rutas directas si no hay intermedios o se elige 0.
+    int numIntermediatePoints = Random.Range(0, allIntermediatePoints.Count + 1);
+
+    // Ordenar los puntos intermedios por cercanía al punto final
+    // Esto crea una "línea" de puntos hacia el destino, ayudando a la lógica de "siempre llegue a destino"
+    List<Transform> sortedIntermediatePoints = new List<Transform>(allIntermediatePoints);
+    sortedIntermediatePoints.Sort((a, b) =>
+        Vector3.Distance(a.position, finalPoint).CompareTo(Vector3.Distance(b.position, finalPoint)));
+
+    // Añadir los puntos intermedios seleccionados (los 'numIntermediatePoints' más cercanos al destino)
+    for (int i = 0; i < numIntermediatePoints && i < sortedIntermediatePoints.Count; i++)
+    {
+      path.Add(sortedIntermediatePoints[i].position);
+    }
+
+    // Añadir el punto final a la ruta
+    path.Add(finalPoint);
+
+    return path;
   }
 
-  /// <summary>
-  /// Devuelve una posición de destino aleatoria de la lista.
-  /// </summary>
-  Vector3 GetRandomTargetPosition()
-  {
-    if (targetPositions == null || targetPositions.Count == 0)
-    {
-      Debug.LogError("No hay posiciones de destino configuradas. Asegúrate de añadir posiciones en el Inspector.");
-      return Vector3.zero;
-    }
-    return targetPositions[Random.Range(0, targetPositions.Count)].position;
-  }
-
-  /// <summary>
-  /// Asigna un material aleatorio al MeshRenderer del fantasma.
-  /// </summary>
-  /// <param name="ghost">El GameObject del fantasma.</param>
-  void AssignRandomMaterial(GameObject ghost)
-  {
-    if (ghostMaterials == null || ghostMaterials.Count == 0)
-    {
-      Debug.LogWarning("No hay materiales de fantasma configurados. El fantasma usará su material por defecto.");
-      return;
-    }
-
-    MeshRenderer meshRenderer = ghost.GetComponentInChildren<MeshRenderer>(); // Busca en hijos también
-    if (meshRenderer != null)
-    {
-      meshRenderer.material = ghostMaterials[Random.Range(0, ghostMaterials.Count)];
-    }
-    else
-    {
-      Debug.LogWarning("El fantasma " + ghost.name + " no tiene un MeshRenderer para asignar el material.");
-    }
-  }
-
-  /// <summary>
-  /// Método para "devolver" un fantasma al pool cuando termina su vida útil o llega a su destino.
-  /// </summary>
-  /// <param name="ghost">El GameObject del fantasma a devolver.</param>
   public void ReturnGhostToPool(GameObject ghost)
   {
-    ghost.SetActive(false); // Desactiva el fantasma
-                            // Cualquier otra lógica de reinicio del fantasma (ej. resetear vida, estado, etc.)
-                            // Si el fantasma tuviera componentes de física o partículas, es un buen lugar para resetearlos.
+    ghost.SetActive(false);
   }
 
   void OnDisable()
   {
-    // Detiene la corutina cuando el objeto se desactiva o se destruye
     if (spawnCoroutine != null)
     {
       StopCoroutine(spawnCoroutine);
@@ -200,20 +191,39 @@ public class GhostManager : MonoBehaviour
 
   void OnDrawGizmos()
   {
-    // Dibujar las posiciones de inicio
     Gizmos.color = Color.green;
-    foreach (Transform pos in startPositions)
+    if (startPositionsParent != null)
     {
-      Gizmos.DrawSphere(pos.position, 0.5f);
-      Gizmos.DrawWireSphere(pos.position, 0.6f);
+      foreach (Transform child in startPositionsParent)
+      {
+        Gizmos.DrawSphere(child.position, 0.5f);
+        Gizmos.DrawWireSphere(child.position, 0.6f);
+      }
     }
 
-    // Dibujar las posiciones de destino
-    Gizmos.color = Color.red;
-    foreach (Transform pos in targetPositions)
+    Gizmos.color = Color.yellow;
+    if (intermediatePositionsParent != null)
     {
-      Gizmos.DrawCube(pos.position, Vector3.one * 0.5f);
-      Gizmos.DrawWireCube(pos.position, Vector3.one * 0.6f);
+      foreach (Transform child in intermediatePositionsParent)
+      {
+        Gizmos.DrawSphere(child.position, 0.4f);
+      }
+    }
+
+    Gizmos.color = Color.red;
+    if (finalPositionsParent != null)
+    {
+      foreach (Transform child in finalPositionsParent)
+      {
+        Gizmos.DrawCube(child.position, Vector3.one * 0.5f);
+        Gizmos.DrawWireCube(child.position, Vector3.one * 0.6f);
+      }
+    }
+
+    Gizmos.color = Color.magenta;
+    if (redGhostGlobalReturnPoint != null)
+    {
+      Gizmos.DrawWireSphere(redGhostGlobalReturnPoint.position, 0.7f);
     }
   }
 }

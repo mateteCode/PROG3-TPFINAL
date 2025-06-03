@@ -29,14 +29,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _FresnelPower: 1
-    - _InteriorSpead: 100
+    - _InteriorSpead: 1
     - _QueueControl: 0
     - _WobbleDistance: 5
     - _WobbleFrequency: 10
     - _WobbleSpeed: 10
     m_Colors:
-    - _FresnelColor: {r: 0.34516734, g: 0.6981132, b: 0.24697402, a: 1}
-    - _InteriorColor: {r: 0.9811321, g: 0.1511804, b: 0.124955505, a: 1}
+    - _FresnelColor: {r: 1.5660378, g: 0, b: 0.07584689, a: 1}
+    - _InteriorColor: {r: 0.98039216, g: 0.12549022, b: 0.49296746, a: 1}
     - _InteriorPosition: {r: 0.1, g: 0.1, b: 0.1, a: 0}
     - _Vector3: {r: 0.0001, g: 0.0001, b: 0.0001, a: 0}
   m_BuildTextureStacks: []
