@@ -225,6 +225,11 @@ public class PlayerController : MonoBehaviour, IDamagable
     onUpdateLife?.Invoke(currentLife, maxLife);
   }
 
+  public void ConsumeExternalPotionLife(int life)
+  {
+    ConsumePotionLife(life);
+  }
+
   private void Death()
   {
     isDead = true;

@@ -15,8 +15,13 @@ public class DoorController : MonoBehaviour
   public Camera doorCamera;
   [Tooltip("Tiempo en segundos que la cámara de la puerta estará activa.")]
   public float doorCameraViewDuration = 2.0f;
+
+  [Tooltip("Demora en segundos antes de activar la cámara de visión de la puerta.")]
+  public float cameraViewActivationDelay = 0.5f;
+
   private Camera mainCamera;
 
+  public bool IsOpen { get { return currentKeys <= 0; } }
   void Awake()
   {
     currentKeys = keysRequired;
@@ -52,13 +57,13 @@ public class DoorController : MonoBehaviour
     if (currentKeys > 0)
     {
       currentKeys--; // Decrementa el contador de llaves
-      Debug.Log($"Door requires {currentKeys} more key(s) to open.");
+      //Debug.Log($"Door requires {currentKeys} more key(s) to open.");
 
 
       if (currentKeys == 0)
       {
         // Si el contador llega a cero, la puerta se puede abrir
-        Debug.Log("All keys collected! Opening door...");
+        //Debug.Log("All keys collected! Opening door...");
 
         Animator doorAnimator = door.GetComponent<Animator>();
         if (doorAnimator != null)
@@ -84,7 +89,7 @@ public class DoorController : MonoBehaviour
     else
     {
       // La puerta ya está abierta o ya se activó la condición
-      Debug.Log("Door is already open or condition met.");
+      //Debug.Log("Door is already open or condition met.");
       // Opcional: Podrías reproducir un sonido de "ya abierta" o "bloqueada" aquí
     }
     //Debug.Log("Door opened!");
@@ -93,6 +98,7 @@ public class DoorController : MonoBehaviour
 
   private IEnumerator HandleDoorCameraView()
   {
+    yield return new WaitForSeconds(cameraViewActivationDelay);
     // Ensure main camera exists and is enabled
     if (mainCamera != null)
     {

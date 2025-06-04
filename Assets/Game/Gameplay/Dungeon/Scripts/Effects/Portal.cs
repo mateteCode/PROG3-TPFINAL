@@ -14,6 +14,12 @@ public class Portal : MonoBehaviour
   [Tooltip("La capa del jugador. Asegúrate de que tu jugador está en esta capa.")]
   public LayerMask playerLayer;
 
+  [Header("Configuración de Daño")]
+  [Tooltip("Cantidad de daño que el jugador recibirá al atravesar el portal.")]
+  public int damageAmount = 8;
+  [Tooltip("Tiempo de espera antes de aplicar el daño al jugador después de la transición.")]
+  public float damageDelay = 0.75f;
+
   public Volume PortalVolume;
 
   //[Header("Efectos de Post-Procesado")]
@@ -63,7 +69,7 @@ public class Portal : MonoBehaviour
     // if (playerRb != null) playerRb.isKinematic = true;
 
     // Espera durante la duración de la transición
-    yield return new WaitForSeconds(transitionDuration);
+    yield return new WaitForSeconds(transitionDuration / 2);
 
     // Teletransporta al jugador
     if (destinationPoint != null)
@@ -87,9 +93,15 @@ public class Portal : MonoBehaviour
 
     isTransitioning = false;
 
-    yield return new WaitForSeconds(transitionDuration);
-
+    yield return new WaitForSeconds(transitionDuration / 2);
+    playerTransform.GetComponent<PlayerController>().Damage(damageAmount);
     PortalVolume.enabled = false;
+  }
+
+  IEnumerator ApplyDamage(Transform playerTransform)
+  {
+    yield return new WaitForSeconds(transitionDuration);
+    playerTransform.GetComponent<PlayerController>().Damage(14);
   }
 
   void OnDrawGizmos()

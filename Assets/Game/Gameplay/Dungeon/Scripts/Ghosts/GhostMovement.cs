@@ -81,7 +81,7 @@ public class GhostMovement : MonoBehaviour
           meshRenderer.material = redGhostMaterial;
           break;
         default:
-          Debug.LogWarning("GhostMovement: Tipo de fantasma no reconocido. Usando material blanco por defecto.");
+          //Debug.LogWarning("GhostMovement: Tipo de fantasma no reconocido. Usando material blanco por defecto.");
           meshRenderer.material = whiteGhostMaterial;
           break;
       }
@@ -114,7 +114,7 @@ public class GhostMovement : MonoBehaviour
     }
     else
     {
-      Debug.LogError("GhostMovement: Ruta de fantasma vacía o nula! Desactivando fantasma.");
+      //Debug.LogError("GhostMovement: Ruta de fantasma vacía o nula! Desactivando fantasma.");
       HandleDisappearance();
     }
   }
@@ -275,7 +275,7 @@ public class GhostMovement : MonoBehaviour
     else
     {
       // Si el manager es nulo, el fantasma probablemente fue instanciado manualmente en la escena y debe ser destruido directamente.
-      Debug.Log($"Fantasma {gameObject.name}: No gestionado por un pool. Destruyendo...");
+      //Debug.Log($"Fantasma {gameObject.name}: No gestionado por un pool. Destruyendo...");
       Destroy(gameObject);
     }
   }
