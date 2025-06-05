@@ -41,7 +41,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7319891521152411626
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -55,6 +55,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -334,6 +335,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -649,6 +653,9 @@ MonoBehaviour:
   _damageCooldown: 1
   deathEvent: {fileID: 0}
   _dropChance: 70
+  _skinnedMeshRenderer: {fileID: 7249935311750452049}
+  _defaultMaterial: {fileID: 2100000, guid: 4973ad056749a5c49ad60dacc581b405, type: 2}
+  _deathMaterial: {fileID: 2100000, guid: 22226102b754a7f4ca0d48e5b38fbf6a, type: 2}
 --- !u!65 &5782681560656792133
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -143,6 +143,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -378,7 +381,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7050110230783713114
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -392,6 +395,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -444,6 +448,9 @@ MonoBehaviour:
   _damageCooldown: 1
   deathEvent: {fileID: 11400000, guid: 29ecb5b89d6635b43bbbe922bfac7dc1, type: 2}
   _dropChance: 75
+  _skinnedMeshRenderer: {fileID: 938399192494672807}
+  _defaultMaterial: {fileID: 2100000, guid: f1724eecaf9d4e7e93cc07cfcb6b4b97, type: 2}
+  _deathMaterial: {fileID: 2100000, guid: ab205d56775b3dc45bc60e719e72785b, type: 2}
 --- !u!54 &2164637041399349321
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -15,6 +15,11 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
   [SerializeField] float _damageCooldown = 1f;
   [SerializeField] AudioEvent deathEvent = null;
   [SerializeField, Range(0f, 100f)] float _dropChance = 70f;
+
+  [SerializeField] SkinnedMeshRenderer _skinnedMeshRenderer;
+  [SerializeField] Material _defaultMaterial;
+  [SerializeField] Material _deathMaterial;
+
   Collider _damageCollider;
   Enemy _controller;
   EnemyAnimation _animation;
@@ -29,6 +34,10 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     if (_rb == null) _rb = GetComponent<Rigidbody>();
     if (_rootGameObject == null) _rootGameObject = gameObject;
     _damageCollider = GetComponent<Collider>();
+    if (_skinnedMeshRenderer != null && _defaultMaterial != null)
+    {
+      _skinnedMeshRenderer.material = _defaultMaterial;
+    }
   }
 
   private void Start()
@@ -37,7 +46,6 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     _controller = _rootGameObject.GetComponent<Enemy>();
     _animation = _controller.GetComponent<EnemyAnimation>();
     _navigation = _controller.GetComponent<EnemyNavigation>();
-
   }
 
   public void Damage(int damage)
@@ -71,9 +79,31 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     //_rb.isKinematic = true;
     //_rb.detectCollisions = false;
     _rb.constraints = RigidbodyConstraints.None;
+
+    if (_skinnedMeshRenderer != null && _deathMaterial != null)
+    {
+      _skinnedMeshRenderer.material = _deathMaterial;
+      StartCoroutine(Desintegrate());
+    }
+
     yield return new WaitForSeconds(3f);
     TrySpawnLootItem();
     Destroy(_rootGameObject);
+  }
+
+  IEnumerator Desintegrate()
+  {
+    float duration = 3f;
+    float timer = 0f;
+
+    while (timer < duration)
+    {
+      float fadeValue = Mathf.Lerp(1f, 0f, timer / duration);
+      _deathMaterial.SetFloat("_Fadein", fadeValue);
+      timer += Time.deltaTime;
+      yield return null;
+    }
+    _deathMaterial.SetFloat("_Fadein", 0f);
   }
 
   public int GetCurrentHealth() => _currentHealth;
