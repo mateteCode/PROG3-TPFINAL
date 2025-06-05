@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class EnemyAnimation : MonoBehaviour
 {
-    Animator _anim;
+    [SerializeField] Animator _anim;
 
     private void Awake()
     {
-        _anim = GetComponent<Animator>();
+        if (TryGetComponent(out Animator anim))
+        {
+            _anim = anim;
+        }
     }
 
     public void SetAnimator(string name, bool value)

@@ -15,6 +15,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
   [SerializeField] float _damageCooldown = 1f;
   [SerializeField] AudioEvent deathEvent = null;
   [SerializeField, Range(0f, 100f)] float _dropChance = 70f;
+  [SerializeField] float offsetSpawnItemY = 0f;
 
   [SerializeField] SkinnedMeshRenderer _skinnedMeshRenderer;
   [SerializeField] Material _defaultMaterial;
@@ -129,7 +130,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
         amount = ItemManager.Instance.GetRandomAmmountOfItem(itemID);
       }
 
-      ItemManager.Instance.GenerateItemInWorldSpace(itemID, amount, transform.position);
-    }
+            ItemManager.Instance.GenerateItemInWorldSpace(itemID, amount, transform.position + new Vector3(0f, offsetSpawnItemY, 0f));
+        }
   }
 }

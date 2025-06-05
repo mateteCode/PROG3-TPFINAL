@@ -16,6 +16,9 @@ public class GameplayController : MonoBehaviour
         winZone?.Init(VictoryPlayer, WinGame);
 
         GameManager.Instance.AudioManager.PlayAudio(musicEvent);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void ToggleOnPause()
