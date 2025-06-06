@@ -9809,3 +9809,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeRestored: 16
   potionDuration: 20
+  pickUpSound: {fileID: 11400000, guid: 14a6ba7a4a194bb488d9ab11c15b3e32, type: 2}

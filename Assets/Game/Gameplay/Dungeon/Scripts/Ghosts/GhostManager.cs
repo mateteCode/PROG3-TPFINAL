@@ -94,7 +94,7 @@ public class GhostManager : MonoBehaviour
         return ghostPool[index];
       }
     }
-    Debug.LogWarning("Pool de fantasmas vacío. Considera aumentar el 'Pool Size' o espera a que uno termine.");
+    //Debug.LogWarning("Pool de fantasmas vacío. Considera aumentar el 'Pool Size' o espera a que uno termine.");
     return null;
   }
 

@@ -19,6 +19,9 @@ public class DoorController : MonoBehaviour
   [Tooltip("Demora en segundos antes de activar la cámara de visión de la puerta.")]
   public float cameraViewActivationDelay = 0.5f;
 
+  [SerializeField] private AudioEvent openDoorSound = null;
+  [SerializeField] private AudioEvent doorLockSound = null;
+
   private Camera mainCamera;
 
   public bool IsOpen { get { return currentKeys <= 0; } }
@@ -69,7 +72,7 @@ public class DoorController : MonoBehaviour
         if (doorAnimator != null)
         {
           doorAnimator.SetTrigger("OpenDoor");
-          //TODO: Sonido de puerta abriéndose
+          GameManager.Instance.AudioManager.PlayAudio(openDoorSound);
         }
         else
         {
@@ -78,7 +81,7 @@ public class DoorController : MonoBehaviour
       }
       else
       {
-        //TODO: Sonido de cerradura que no abre
+        GameManager.Instance.AudioManager.PlayAudio(doorLockSound);
       }
 
       if (doorCamera != null)

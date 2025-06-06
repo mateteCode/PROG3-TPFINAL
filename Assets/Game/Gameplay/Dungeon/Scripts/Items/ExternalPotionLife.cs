@@ -7,6 +7,7 @@ public class ExternalPotionLife : MonoBehaviour
   public int lifeRestored = 16;
   [Tooltip("Tiempo en segundos que la poción estará activa.")]
   public float potionDuration = 20.0f;
+  [SerializeField] private AudioEvent pickUpSound = null;
 
   void OnTriggerEnter(Collider other)
   {
@@ -14,7 +15,7 @@ public class ExternalPotionLife : MonoBehaviour
     PlayerController playerController = other.GetComponent<PlayerController>();
     if (playerController == null) return;
     playerController.ConsumeExternalPotionLife(lifeRestored);
-    // TODO: Sonido de recogida de poción
+    GameManager.Instance.AudioManager.PlayAudio(pickUpSound);
     Destroy(gameObject);
   }
 

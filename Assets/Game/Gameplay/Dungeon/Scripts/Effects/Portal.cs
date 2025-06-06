@@ -20,6 +20,8 @@ public class Portal : MonoBehaviour
   [Tooltip("Tiempo de espera antes de aplicar el daño al jugador después de la transición.")]
   public float damageDelay = 0.75f;
 
+  [SerializeField] private AudioEvent portalSound = null;
+
   public Volume PortalVolume;
 
   //[Header("Efectos de Post-Procesado")]
@@ -52,6 +54,7 @@ public class Portal : MonoBehaviour
   {
     isTransitioning = true;
     PortalVolume.enabled = true; // Activa el volumen de post-procesado del portal
+    GameManager.Instance.AudioManager.PlayAudio(portalSound);
 
     // Guarda el perfil original para restaurarlo después
     //PostProcessProfile originalProfile = cameraPostProcessVolume.profile;

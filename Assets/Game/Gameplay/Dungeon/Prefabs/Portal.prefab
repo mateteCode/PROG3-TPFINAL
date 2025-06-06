@@ -5015,4 +5015,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  damageAmount: 8
+  damageDelay: 0.75
+  portalSound: {fileID: 11400000, guid: aff8e5ea4e3e04845a5d71dbfd178b3e, type: 2}
   PortalVolume: {fileID: 0}
