@@ -7,6 +7,7 @@ public class GameplayUI : MonoBehaviour
 {
   [Header("HUD Settings")]
   [SerializeField] private Slider playerHealthSlider = null;
+  [SerializeField] private GameObject dialogPanel = null;
 
   [Header("Pause Settings")]
   [SerializeField] private GameObject pausePanel = null;
@@ -27,13 +28,13 @@ public class GameplayUI : MonoBehaviour
 
   private void Start()
   {
-    resumeBtn.onClick.AddListener(() => TogglePause(false));
-    backToMenuBtn.onClick.AddListener(BackToMenu);
+    resumeBtn?.onClick.AddListener(() => TogglePause(false));
+    backToMenuBtn?.onClick.AddListener(BackToMenu);
 
-    retryBtn.onClick.AddListener(Retry);
-    loseBackToMenuBtn.onClick.AddListener(BackToMenu);
+    retryBtn?.onClick.AddListener(Retry);
+    loseBackToMenuBtn?.onClick.AddListener(BackToMenu);
 
-    winBackToMenuBtn.onClick.AddListener(BackToMenu);
+    winBackToMenuBtn?.onClick.AddListener(BackToMenu);
   }
 
   public void Init(Action<bool> onToggleTimeScale, Action onToggleOnPlayerInput)
@@ -121,4 +122,8 @@ public class GameplayUI : MonoBehaviour
     Cursor.visible = true;
   }
 
+   public void OpenDialog()
+    {
+        dialogPanel?.SetActive(true);
+    }
 }

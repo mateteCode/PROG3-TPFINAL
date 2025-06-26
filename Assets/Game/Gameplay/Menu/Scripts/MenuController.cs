@@ -15,10 +15,9 @@ public class MenuController : MonoBehaviour
     public void OnStartGameButton()
     {
         menuCanvas.SetActive(false);
-        GameManager.Instance.ChangeScene(SceneGame.Gameplay);
+        GameManager.Instance.ChangeScene(SceneGame.Intro);
     }
 
-   
     public void ShowCredits()
     {
         menuCanvas.SetActive(false);

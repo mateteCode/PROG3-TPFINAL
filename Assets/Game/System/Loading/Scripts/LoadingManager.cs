@@ -14,6 +14,7 @@ public class LoadingManager : MonoBehaviour
     private static readonly Dictionary<SceneGame, string> sceneNames = new Dictionary<SceneGame, string>()
     {
         { SceneGame.Menu, "Menu" },
+        { SceneGame.Intro, "Intro" },
         { SceneGame.Gameplay, "Gameplay" },
         { SceneGame.Loading, "Loading" }
     };
