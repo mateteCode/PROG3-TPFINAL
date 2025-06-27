@@ -3,15 +3,22 @@ using UnityEngine;
 
 public class Dog : MonoBehaviour
 {
-    [SerializeField] private LayerMask playerLayer = default;
+  [SerializeField] private LayerMask playerLayer = default;
 
-    public Action onTriggered = null;
+  public Action onTriggered = null;
+  public Action onUntriggered = null;
 
-    private void OnTriggerEnter(Collider other)
+  private void OnTriggerEnter(Collider other)
+  {
+    if (Utils.CheckLayerInMask(playerLayer, other.gameObject.layer))
     {
-        if (Utils.CheckLayerInMask(playerLayer, other.gameObject.layer))
-        {
-            onTriggered?.Invoke();
-        }
+      onTriggered?.Invoke();
     }
+  }
+
+
+  void OnTriggerExit(Collider other)
+  {
+    onUntriggered?.Invoke();
+  }
 }

@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,8 @@ public class GameplayUI : MonoBehaviour
   [Header("HUD Settings")]
   [SerializeField] private Slider playerHealthSlider = null;
   [SerializeField] private GameObject dialogPanel = null;
+  [SerializeField] private TextMeshProUGUI dialogMessageText = null; // Asigna un componente Text aquí
+
 
   [Header("Pause Settings")]
   [SerializeField] private GameObject pausePanel = null;
@@ -122,8 +125,23 @@ public class GameplayUI : MonoBehaviour
     Cursor.visible = true;
   }
 
-   public void OpenDialog()
+  public void OpenDialog()
+  {
+    dialogPanel?.SetActive(true);
+  }
+
+
+  public void SetDialogMessageAndOpen(string message)
+  {
+    if (dialogMessageText != null)
     {
-        dialogPanel?.SetActive(true);
+      dialogMessageText.text = message;
     }
+    dialogPanel?.SetActive(true);
+  }
+
+  public void CloseDialog()
+  {
+    dialogPanel?.SetActive(false);
+  }
 }

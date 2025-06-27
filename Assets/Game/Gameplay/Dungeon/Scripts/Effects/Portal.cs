@@ -120,7 +120,7 @@ public class Portal : MonoBehaviour
     {
       Gizmos.color = Color.red;
       Gizmos.DrawWireCube(transform.position + Vector3.up * 2f, Vector3.one);
-      UnityEditor.Handles.Label(transform.position + Vector3.up * 2.5f, "DESTINO NO ASIGNADO");
+      //UnityEditor.Handles.Label(transform.position + Vector3.up * 2.5f, "DESTINO NO ASIGNADO");
     }
 
     // Dibujar el collider del trigger del portal
