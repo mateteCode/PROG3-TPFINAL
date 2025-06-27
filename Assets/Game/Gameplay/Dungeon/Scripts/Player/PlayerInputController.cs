@@ -59,6 +59,20 @@ public class PlayerInputController : MonoBehaviour
     UpdateInputFSM(FSM_INPUT.ENABLE_ALL);
   }
 
+  public void DeInit()
+    {
+        inputAction.Player.PauseGame.performed -= OnPause;
+        inputAction.Player.Inventory.performed -= OnInvetory;
+        inputAction.Player.PickItem.performed -= OnPick;
+        inputAction.Player.Run.performed -= OnStartRun;
+        inputAction.Player.Run.canceled -= OnEndRun;
+        inputAction.Player.ChangeWeapon.performed -= OnChangeWeapons;
+        inputAction.Player.Action1.performed -= OnPressAction1;
+        inputAction.Player.Action2.performed -= OnPressAction2;
+        inputAction.Player.Action1.canceled -= OnCancelAction1;
+        inputAction.Player.Action2.canceled -= OnCancelAction2;
+    }
+
   public void OnPause(InputAction.CallbackContext context)
   {
     onPause?.Invoke();

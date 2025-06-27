@@ -67,7 +67,12 @@ public class PlayerController : MonoBehaviour, IDamagable
     UpdateAnimation();
   }
 
-  public void Init(Action onOpenPausePanel, Action<int, int> onUpdateLife, Action onPlayerDeath)
+    private void OnDestroy()
+    {
+        inputController.DeInit();
+    }
+
+    public void Init(Action onOpenPausePanel, Action<int, int> onUpdateLife, Action onPlayerDeath)
   {
     this.onOpenPausePanel = onOpenPausePanel;
     this.onUpdateLife = onUpdateLife;
