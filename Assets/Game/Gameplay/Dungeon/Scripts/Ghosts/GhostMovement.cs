@@ -5,13 +5,13 @@ using System.Collections.Generic;
 public class GhostMovement : MonoBehaviour
 {
   private Vector3 currentTargetPosition;
-  private float moveSpeed;
-  private GhostManager manager = null; // Se inicializa a null, el manager lo asignará si viene del pool
-  public int Health { get; set; } // Propiedad para la vida del fantasma
+  private float moveSpeed; // Velocidad base para rutas normales
+  private GhostManager manager = null;
+  public int Health { get; set; }
 
   private GhostType ghostType;
-  private List<Vector3> currentPath; // La ruta que debe seguir el fantasma
-  private int pathIndex; // Índice actual en la ruta
+  private List<Vector3> currentPath;
+  private int pathIndex;
 
   [Header("Behavior Configuration")]
   [Tooltip("Distancia mínima al jugador para que el fantasma reaccione en estado Idle.")]
@@ -20,6 +20,8 @@ public class GhostMovement : MonoBehaviour
   public GameObject whiteGhostDropPrefab;
   [Tooltip("Posición fija a la que regresa el fantasma rojo antes de desaparecer.")]
   public Transform redGhostFixedReturnPoint;
+  [Tooltip("Distancia a la que el fantasma considera que ha llegado a su destino de victoria.")]
+  public float stoppingDistance = 0.1f;
 
   [Header("Material Configuration")]
   [Tooltip("Material para el fantasma Blanco. Asignar en el Inspector del prefab del fantasma.")]
@@ -33,13 +35,21 @@ public class GhostMovement : MonoBehaviour
 
   private enum GhostState
   {
-    MovingToWaypoint,        // Moviéndose a lo largo de la ruta inicial
-    IdleLookingAtPlayer,     // Detenido, mirando al jugador y esperando que se acerque
-    ReturningToOrigin,       // Fantasma Azul: regresando al punto de inicio de su ruta
-    ReturningToFixedPoint,   // Fantasma Rojo: regresando a un punto fijo predefinido
-    Disappearing             // Fantasma Blanco o final de retorno: en proceso de desactivarse
+    MovingToWaypoint,
+    IdleLookingAtPlayer,
+    ReturningToOrigin,
+    ReturningToFixedPoint,
+    VictoryMove,
+    Idle,
+    Disappearing
   }
   private GhostState currentState;
+
+  private Vector3 victoryTargetPosition;
+  private float victoryCurrentSpeed; // Velocidad actual durante el estado de victoria
+  private float victoryFastSpeedRef; // Referencia a la velocidad rápida
+  private float victoryNormalSpeedRef; // Referencia a la velocidad normal
+  private float victorySlowDownDistanceRef; // Referencia a la distancia de desaceleración
 
   void Awake()
   {
@@ -55,12 +65,11 @@ public class GhostMovement : MonoBehaviour
       Debug.LogWarning("GhostMovement: Jugador con tag 'Player' no encontrado en la escena. Asegúrate de que tu jugador tiene el tag 'Player'.");
     }
 
-    // Si este fantasma NO es gestionado por el Manager (es decir, manager es null al inicio),
     if (manager == null)
     {
-      ghostType = GhostType.White; // O usar un campo serializado
+      ghostType = GhostType.White;
       setMaterial(ghostType);
-      currentState = GhostState.IdleLookingAtPlayer; // Empieza en idle si no es del pool
+      currentState = GhostState.IdleLookingAtPlayer;
     }
   }
 
@@ -81,7 +90,6 @@ public class GhostMovement : MonoBehaviour
           meshRenderer.material = redGhostMaterial;
           break;
         default:
-          //Debug.LogWarning("GhostMovement: Tipo de fantasma no reconocido. Usando material blanco por defecto.");
           meshRenderer.material = whiteGhostMaterial;
           break;
       }
@@ -96,7 +104,7 @@ public class GhostMovement : MonoBehaviour
   {
     ghostType = type;
     currentPath = path;
-    moveSpeed = speed;
+    moveSpeed = speed; // Esta es la velocidad normal para rutas
     manager = ghostManager;
     whiteGhostDropPrefab = whiteGhostDrop;
     redGhostFixedReturnPoint = redReturnPoint;
@@ -114,26 +122,45 @@ public class GhostMovement : MonoBehaviour
     }
     else
     {
-      //Debug.LogError("GhostMovement: Ruta de fantasma vacía o nula! Desactivando fantasma.");
       HandleDisappearance();
     }
   }
 
+  // --- MÉTODO para establecer el destino de victoria (ahora con velocidades) ---
+  public void SetVictoryDestination(Vector3 destination, float fastSpeed, float normalSpeed, float slowDownDistance)
+  {
+    victoryTargetPosition = destination;
+    victoryFastSpeedRef = fastSpeed;
+    victoryNormalSpeedRef = normalSpeed;
+    victorySlowDownDistanceRef = slowDownDistance;
+
+    // Establecer la velocidad inicial para el estado de victoria como la velocidad rápida
+    victoryCurrentSpeed = victoryFastSpeedRef;
+
+    currentState = GhostState.VictoryMove;
+    Debug.Log($"{gameObject.name} (Tipo: {ghostType}) está moviéndose a su posición de victoria: {victoryTargetPosition} con velocidad inicial {victoryCurrentSpeed}");
+  }
+
   void Update()
   {
-    // Debug.Log($"GhostMovement: Estado actual: {currentState}, Tipo de fantasma: {ghostType} para el fantasma {gameObject.name}");
     switch (currentState)
     {
       case GhostState.MovingToWaypoint:
-        MoveTowardsCurrentTarget(); // Mover hacia el waypoint actual
+        MoveTowardsCurrentTarget();
         break;
       case GhostState.IdleLookingAtPlayer:
         LookAtPlayer();
-        CheckPlayerDistanceAndTriggerBehavior(); // Verificar distancia para activar comportamiento
+        CheckPlayerDistanceAndTriggerBehavior();
         break;
       case GhostState.ReturningToOrigin:
       case GhostState.ReturningToFixedPoint:
-        MoveTowardsCurrentTarget(); // Mover de regreso al punto final (origen o fijo)
+        MoveTowardsCurrentTarget();
+        break;
+      case GhostState.VictoryMove:
+        MoveToVictoryDestination();
+        break;
+      case GhostState.Idle:
+        // El fantasma está inactivo
         break;
     }
 
@@ -168,14 +195,47 @@ public class GhostMovement : MonoBehaviour
         }
         else
         {
-          //Debug.Log($"Fantasma {ghostType}: Llegó al final de su ruta inicial. Entrando en estado Idle.");
           currentState = GhostState.IdleLookingAtPlayer;
         }
       }
       else if (currentState == GhostState.ReturningToOrigin || currentState == GhostState.ReturningToFixedPoint)
       {
-        //Debug.Log($"Fantasma {ghostType}: Llegó a su punto de retorno. Desapareciendo.");
         StartCoroutine(Disappear());
+      }
+    }
+  }
+
+  // --- MÉTODO para moverse al destino de victoria (con velocidad adaptativa) ---
+  void MoveToVictoryDestination()
+  {
+    float distanceToTarget = Vector3.Distance(transform.position, victoryTargetPosition);
+
+    // Ajustar velocidad basada en la distancia al objetivo
+    if (distanceToTarget > victorySlowDownDistanceRef)
+    {
+      victoryCurrentSpeed = victoryFastSpeedRef; // Velocidad rápida si está lejos
+    }
+    else
+    {
+      // Interpolar velocidad para una transición suave o simplemente usar la normal
+      victoryCurrentSpeed = Mathf.Lerp(victoryNormalSpeedRef, victoryFastSpeedRef, distanceToTarget / victorySlowDownDistanceRef);
+      // O si quieres que la velocidad sea DIRECTAMENTE normal al pasar el umbral:
+      // victoryCurrentSpeed = victoryNormalSpeedRef;
+    }
+
+    // Mover hacia la posición final de victoria
+    transform.position = Vector3.MoveTowards(transform.position, victoryTargetPosition, victoryCurrentSpeed * Time.deltaTime);
+
+    // Si el fantasma ha llegado (o está muy cerca) de su destino
+    if (distanceToTarget < stoppingDistance)
+    {
+      transform.position = victoryTargetPosition; // Asegurarse de que esté exactamente en el punto
+      currentState = GhostState.Idle; // Cambiar a estado Idle
+      Debug.Log($"{gameObject.name} (Tipo: {ghostType}) ha llegado a su posición de victoria y ahora está INACTIVO.");
+      // Notificar al GhostManager que este fantasma ha llegado a su destino de victoria
+      if (manager != null)
+      {
+        manager.GhostReachedVictoryPosition();
       }
     }
   }
@@ -188,8 +248,7 @@ public class GhostMovement : MonoBehaviour
 
     if (distanceToPlayer <= playerDetectionRange)
     {
-      //Debug.Log($"Fantasma {ghostType}: Jugador detectado dentro del rango ({distanceToPlayer:F2}m). Activando comportamiento final.");
-      TriggerSpecificGhostBehavior(); // Llama al comportamiento final específico para el tipo de fantasma
+      TriggerSpecificGhostBehavior();
     }
   }
 
@@ -211,23 +270,17 @@ public class GhostMovement : MonoBehaviour
     switch (ghostType)
     {
       case GhostType.White:
-        //Debug.Log("Fantasma Blanco: Desapareciendo y dejando objeto.");
         if (whiteGhostDropPrefab != null)
         {
           Instantiate(whiteGhostDropPrefab, transform.position, Quaternion.identity);
-        }
-        else
-        {
-          //Debug.LogWarning("Fantasma Blanco: No se asignó un prefab para soltar.");
         }
         StartCoroutine(Disappear());
         break;
 
       case GhostType.Blue:
-        //Debug.Log("Fantasma Azul: Regresando a la posición de origen.");
         if (currentPath != null && currentPath.Count > 0)
         {
-          currentTargetPosition = currentPath[0]; // Regresar al primer punto de la ruta
+          currentTargetPosition = currentPath[0];
           currentState = GhostState.ReturningToOrigin;
         }
         else
@@ -238,7 +291,6 @@ public class GhostMovement : MonoBehaviour
         break;
 
       case GhostType.Red:
-        //Debug.Log("Fantasma Rojo: Volviendo a una posición fija.");
         if (redGhostFixedReturnPoint != null)
         {
           currentTargetPosition = redGhostFixedReturnPoint.position;
@@ -253,29 +305,21 @@ public class GhostMovement : MonoBehaviour
     }
   }
 
-
   private IEnumerator Disappear()
   {
     currentState = GhostState.Disappearing;
-    // TODO: Añadir efecto de desaparición visual (ej. sistema de partículas, fade del shader).
-    // Y/o un sonido de desaparición.
-
     yield return null;
-
-    HandleDisappearance(); // Llama al método que decide si devolver al pool o destruir
+    HandleDisappearance();
   }
 
   private void HandleDisappearance()
   {
     if (manager != null)
     {
-      // Si el fantasma fue creado por el manager (y por lo tanto, pertenece al pool)
       manager.ReturnGhostToPool(this.gameObject);
     }
     else
     {
-      // Si el manager es nulo, el fantasma probablemente fue instanciado manualmente en la escena y debe ser destruido directamente.
-      //Debug.Log($"Fantasma {gameObject.name}: No gestionado por un pool. Destruyendo...");
       Destroy(gameObject);
     }
   }

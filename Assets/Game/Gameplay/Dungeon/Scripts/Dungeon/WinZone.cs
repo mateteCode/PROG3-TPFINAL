@@ -40,7 +40,8 @@ public class WinZone : MonoBehaviour
     if (Utils.CheckLayerInMask(playerLayer, other.gameObject.layer))
     {
       onFinishGame?.Invoke();
-      PlayWinAnimation();
+      //PlayWinAnimation();
+      GhostManager.Instance.DeclareVictory();
       winCamera?.gameObject.SetActive(true);
     }
   }

@@ -14,6 +14,7 @@ public class GameplayController : MonoBehaviour
     playerController.Init(ToggleOnPause, gameplayUI.UpdatePlayerHealth, LoseGame);
     gameplayUI.Init(ToggleTimeScale, ToggleOffPause);
     winZone?.Init(VictoryPlayer, WinGame);
+    GhostManager.Instance.Init(WinGame);
 
     GameManager.Instance.AudioManager.PlayAudio(musicEvent);
 
